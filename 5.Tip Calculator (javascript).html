@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Tip calculater </title>
+        <!-- <link rel=" stylesheet" href="./assmt6.css"> -->
+        <style>
+            body{
+                font-family: 'Franklin Gothic Medium';
+                background-color: rgb(1, 11, 15);
+            }
+            #container{
+                width: 360px;
+                height: 600px;
+                background-color: tomato;
+                border-radius: 20px;
+                margin: 100px auto;
+            }
+            h1{
+                background-color: turquoise;
+                font-size: 30px;
+                border-top-left-radius: 20px;
+                border-top-right-radius:20px;
+                padding: 25px;
+            }
+            p{
+                padding-left: 20px;
+                font-size: 16px;
+            }
+            form input[type="text"]{
+                width:150px;
+            }
+            input{
+                padding:10px;
+            }
+
+            #billamt{
+                width: 170px;
+                font-size: 18px;
+                background: wheat;
+                padding: 5px auto;
+                margin-left: 20px;
+            }
+
+            #service{
+                width: 200px;
+                height: 70px;
+                font-size: 18px;
+                padding: 10px auto;
+                margin-left:37px;
+                background: wheat; 
+            }
+            #peopleamt{
+                width: 175px;
+                font-size: 13px;
+                padding: 5px auto;
+                margin-left:19px;
+                background: wheat; 
+            }
+
+            button{
+                width: 100px;
+                height: 50px;
+                background: #000000;
+                color:white;
+                font-size: 20px;
+                margin: 30px auto;
+                display: block;
+            }
+
+            #totaltip{
+                font-size: 30px;
+                margin-top: 5px;
+                text-align: center;
+            }
+            #totaltip:before{
+                content: "Total Tip";
+                font-size: 20px;
+                font-weight: bold;
+                display: block;
+            }
+            #totaltip sup{
+                font-size: 20px;
+                margin-top: -18px;
+            }
+
+            #totaltip small{
+                font-size: 20px;
+                font-weight: bold;
+                display: block;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <h1> Tip Calculator</h1>
+
+            <div id="calculator">
+              
+                <form>
+                    <p> How much was your bill ? </p>
+                    <p>$<input id="billamt" type="text" placeholder="Bill amount"></p>
+                    <p> How was service?</p>
+                        <select id="service">
+                            <option disabled selected value="0"> Select level of service</option>
+                            <option value="0.2">20&#37; &#45;Excellent</option>
+                            <option value="0.15">15&#37; &#45; Good </option>
+                            <option value="0.10">10&#37; &#45; It is OK</option>
+                            <option value="0.5">5&#37; &#45; Bad </option>
+                        </select>
+                    <p> How many people sharing the bill?</p>
+                    <p><input id="peopleamt" type="text" placeholder="Enter Number of people">people</p>
+                </form>
+
+                <button type="button" id="btnClick">Calculate</button>
+            </div>
+        
+
+
+            <div id="totaltip">
+                <sup>$</sup><span id="tip">0.00</span>
+                
+                <small id="each">Each</small>
+            </div>
+        
+            <!-- <script src="./assmt6.js"></script> -->
+        </div>
+    </body>
+        <script>
+                function calculate(){
+                var billamt = document.getElementById("billamt").value;
+                var serviceamt = document.getElementById("service").value;
+                var peopleamt = document.getElementById("peopleamt").value;
+                
+                //validate input
+                if(billamt === "" || serviceamt === 0){
+                    alert(" please enter amount value");
+                    return;
+                }
+
+                
+                //num of people should atleast 1 else display non 
+                if(peopleamt === "" || peopleamt <= 1){
+                    peopleamt = 1;
+
+                    document.getElementById("each").style.display="none";
+                } else{
+                    document.getElementById("each").style.display ="block";
+                }
+
+                //calculate tip
+
+                var total = (billamt * serviceamt)/peopleamt;
+                total = Math.round(total * 100)/100;
+                tatal =total.toFixed(2);   //only for 2 digits after point
+
+                document.getElementById("totaltip").style.display ="block";
+                document.getElementById("tip").innerHTML = total;
+            }
+
+            // //defaultly hidden
+            document.getElementById("totaltip").style.display = "none";
+            document.getElementById("each").style.display ="none";
+
+            document.getElementById("btnClick").onclick = function() {
+                calculate();
+            }
+
+        </script>
+   
+</html>
